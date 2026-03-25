@@ -1,22 +1,84 @@
+<h1>{{title}}</h1>
 
-{{!-- TODO create ingredient submit form --}}
+<form id="ingredient-form" action="/recipe" method="POST">
+  <label for="ingredients">Enter ingredients:</label>
+  <br>
+  <input type="text" id="ingredients" name="ingredients" required>
+  <br><br>
+
+  <p>Checkbox options:</p>
+  <label>
+    <input type="checkbox" class="recipe-option" value="Don't use anything that is a potentially have a allergic reaction to, even if I've listed it.">
+    No allergens
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox" class="recipe-option" value="Make the meal vegitarian.">
+    Vegitarian
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox" class="recipe-option" value="Choose the best type of meat to purchase for the ingredients listed by the user.">
+    Add meat
+  </label>
+  <br><br>
+
+  <p>Additional Ingredients Options:</p>
+  <label>
+    <input type="radio" name="radio-option" class="radio-option" value="Use only the users ingredients.">
+    Use only the ingredients listed above
+  </label>
+  <br>
+
+  <label>
+    <input type="radio" name="radio-option" class="radio-option" value="Use ingredients in addition to those I've listed">
+    Okay to use other ingredients
+  </label>
+  <br>
+
+  <label>
+    <input type="radio" name="radio-option" class="radio-option" value="Add as many other ingredients as you want but keep the cost of your added ingredients 10 dollars or less.">
+    Keep additional item cost under $10
+  </label>
+  <br><br>
+
+  <button id="submit-button" type="submit">Submit</button>
+</form>
 
 <script>
+  let ingredientForm = document.querySelector('#ingredient-form')
+  let ingredientSubmitButton = document.querySelector('#submit-button')
+  let ingredientsInput = document.querySelector('#ingredients')
+  let recipeOptions = document.querySelectorAll('.recipe-option')
+  let radioOptions = document.querySelectorAll('.radio-option')
 
-    let ingredientForm = document.querySelector('#ingredient-form')
-    let ingredientSubmitButton = document.querySelector('#submit-button')
-
-    // Ensure button is enabled and says "Submit" when the page is loaded
-    window.addEventListener('pageshow', function() {
+  window.addEventListener('pageshow', function() {
     ingredientSubmitButton.disabled = false
-    ingredientSubmitButton.value = "Submit"
+    ingredientSubmitButton.textContent = 'Submit'
+  })
+
+  ingredientForm.addEventListener('submit', function() {
+    let selectedOptions = []
+
+    recipeOptions.forEach(function(option) {
+      if (option.checked) {
+        selectedOptions.push(option.value)
+      }
     })
 
-    // Disable button and change button text to "Creating..." when the user 
-    // has entered valid data in the form and clicked the submit button 
-    ingredientForm.addEventListener('submit', function() {
-        ingredientSubmitButton.value = "Creating..."
-        ingredientSubmitButton.disabled = true
+    radioOptions.forEach(function(option) {
+      if (option.checked) {
+        selectedOptions.push(option.value)
+      }
     })
-    
+
+    if (selectedOptions.length > 0) {
+      ingredientsInput.value = ingredientsInput.value + ', ' + selectedOptions.join(', ')
+    }
+
+    ingredientSubmitButton.textContent = 'Creating...'
+    ingredientSubmitButton.disabled = true
+  })
 </script>

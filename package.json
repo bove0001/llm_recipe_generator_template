@@ -9,8 +9,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@google/genai": "^1.26.0",
-    "express": "^5.1.0",
+    "@google/genai": "^1.46.0",
+    "express": "^5.2.1",
     "hbs": "^4.2.0"
   }
 }
