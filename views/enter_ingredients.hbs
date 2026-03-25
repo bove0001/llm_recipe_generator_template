@@ -54,31 +54,17 @@
   let recipeOptions = document.querySelectorAll('.recipe-option')
   let radioOptions = document.querySelectorAll('.radio-option')
 
-  window.addEventListener('pageshow', function() {
+    // Ensure button is enabled and says "Submit" when the page is loaded
+    window.addEventListener('pageshow', function() {
     ingredientSubmitButton.disabled = false
-    ingredientSubmitButton.textContent = 'Submit'
-  })
-
-  ingredientForm.addEventListener('submit', function() {
-    let selectedOptions = []
-
-    recipeOptions.forEach(function(option) {
-      if (option.checked) {
-        selectedOptions.push(option.value)
-      }
+    ingredientSubmitButton.value = "Submit"
     })
 
-    radioOptions.forEach(function(option) {
-      if (option.checked) {
-        selectedOptions.push(option.value)
-      }
+    // Disable button and change button text to "Creating..." when the user 
+    // has entered valid data in the form and clicked the submit button 
+    ingredientForm.addEventListener('submit', function() {
+        ingredientSubmitButton.value = "Creating..."
+        ingredientSubmitButton.disabled = true
     })
-
-    if (selectedOptions.length > 0) {
-      ingredientsInput.value = ingredientsInput.value + ', ' + selectedOptions.join(', ')
-    }
-
-    ingredientSubmitButton.textContent = 'Creating...'
-    ingredientSubmitButton.disabled = true
-  })
+    
 </script>
